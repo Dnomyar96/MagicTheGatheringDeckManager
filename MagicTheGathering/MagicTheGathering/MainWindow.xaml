@@ -1,0 +1,47 @@
+﻿<Window x:Class="MagicTheGathering.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagicTheGathering"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="listBox" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10,10,0,0" VerticalAlignment="Top" Width="223"/>
+        <Button x:Name="button" Grid.Row="1" Grid.Column="0" Content="Show Card" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="223" Click="button_Click"/>
+        <Button x:Name="sortButton" Grid.Row="1" Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="sortButton_Click"/>
+        <Image x:Name="image" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10,10,0,0" VerticalAlignment="Top" Width="223"/>
+
+        <Grid Grid.Row="0" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="colorLabel" Grid.Row="0" Grid.Column="0" Content="Color"/>
+            <Label x:Name="rarityLabel" Grid.Row="1" Grid.Column="0" Content="Rarity"/>
+            <ComboBox x:Name="colorComboBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
+            <ComboBox x:Name="rarityComboBox" Grid.Row="1" Grid.Column="1" Margin="5"/>
+        </Grid>
+    </Grid>
+</Window>
