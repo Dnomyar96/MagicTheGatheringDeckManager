@@ -108,6 +108,25 @@ namespace MagicTheGathering
                                 "d=rja&uact=8&ved=0ahUKEwixptmGi4bTAhVDrRQKHTIEBDgQjRwIBw&url=http%3A%2F%2Fshchurchullanad.com%2Fformervi" +
                                 "cars.php&psig=AFQjCNH6LtqsKAb8o8LgthDCPQ9zyUGO_A&ust=1491233283080580"));
                         }
+                        nameText.Text = card.Name;
+                        typeText.Text = card.Type;
+                        rarityText.Text = card.Rarity;
+                        textText.Document.Blocks.Clear();
+                        textText.Document.Blocks.Add(new Paragraph(new Run(card.Text)));
+                        flavorText.Document.Blocks.Clear();
+                        flavorText.Document.Blocks.Add(new Paragraph(new Run(card.Flavor)));
+                        if(card.Loyalty != null)
+                        {
+                            strengthText.Text = card.Loyalty;
+                        }
+                        else if(card.Power != null)
+                        {
+                            strengthText.Text = card.Power + "/" + card.Toughness;
+                        }
+                        else
+                        {
+                            strengthText.Text = "";
+                        }
                     }
                     HideSpinner();
                 }
