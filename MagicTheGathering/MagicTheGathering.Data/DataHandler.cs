@@ -53,7 +53,7 @@ namespace MagicTheGathering.Data
             }
 
             var serializer = new XmlSerializer(typeof(Magic));
-            using (var writer = new StreamWriter("data/" + fileName + ".xml"))
+            using (var writer = new StreamWriter($"Data/{fileName}.xml"))
             {
                 serializer.Serialize(writer, magic);
             }
@@ -62,7 +62,7 @@ namespace MagicTheGathering.Data
         public List<Card> GetCards(string fileName)
         {
             var deserializer = new XmlSerializer(typeof(Magic));
-            using (var reader = new StreamReader($"data/{fileName}.xml"))
+            using (var reader = new StreamReader($"Data/{fileName}.xml"))
             {
                 var data = (Magic)deserializer.Deserialize(reader);
                 return data.Cards;

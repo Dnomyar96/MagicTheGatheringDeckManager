@@ -6,7 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataPopulater
+namespace 
+    
+    
+    Populater
 {
     class Program
     {
@@ -15,11 +18,28 @@ namespace DataPopulater
             Console.WriteLine("Press 'Enter' to start...");
             Console.ReadLine();
 
-            SaveData();
+            Sets();
             Console.ReadLine();
         }
 
-        public static async void SaveData()
+        public static async void Sets()
+        {
+            var setService = new SetService();
+            var result = await setService.AllAsync();
+
+            if(result.IsSuccess)
+            {
+                var sets = result.Value;
+                foreach(var set in sets)
+                {
+                    if (!set.Name.Contains("Collector's Edition") && !set.Name.ToLower().Contains("limited edition") && set.Name != "Arabian Nights")
+                        await SaveData(set.Name);
+                }
+            }
+            Console.WriteLine("All done");
+        }
+
+        public static async Task SaveData(string setName)
         {
             var service = new CardService();
             var cards = new List<Card>();
@@ -27,8 +47,8 @@ namespace DataPopulater
             var count = 1;
             while (!done)
             {
-                Console.WriteLine("Downloading info...");
-                var result = await service.Where(x => x.SetName, "Kaladesh").Where(x => x.Page, count).AllAsync();
+                Console.WriteLine("Downloading info (" + setName + ")...");
+                var result = await service.Where(x => x.SetName, setName).Where(x => x.Page, count).AllAsync();
                 if (result.IsSuccess)
                 {
                     if (result.Value.Count > 0)
@@ -49,8 +69,8 @@ namespace DataPopulater
             }
             Console.WriteLine("Creating XML file...");
             var handler = new MagicTheGathering.Data.DataHandler();
-            handler.SaveCards(cards, "Kaladesh");
-            Console.WriteLine("Done");
+            handler.SaveCards(cards, setName);
+            Console.WriteLine("Done: " + setName);
         }
     }
 }

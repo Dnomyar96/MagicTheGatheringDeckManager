@@ -18,20 +18,23 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="0.75*"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Set" Grid.Row="0" Grid.Column="0"/>
-        <Label Content="Deck" Grid.Row="0" Grid.Column="3"/>
-        <ListBox x:Name="listBox" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10" VerticalAlignment="Top" Width="223"/>
+        <Label Content="Cards" Grid.Row="0" Grid.Column="0"/>
+        <Label Content="Decks" Grid.Row="0" Grid.Column="3"/>
+        <Label x:Name="resultLabel" Content="0 results" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"/>
+        <ListBox x:Name="listBox" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Height="300" Margin="10,30,10,10" VerticalAlignment="Top" Width="223"/>
         <Button x:Name="button" Grid.Row="3" Grid.Column="0" Content="Show Card" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="223" Click="button_Click"/>
         <Button x:Name="sortButton" Grid.Row="3" Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="100" Click="sortButton_Click"/>
         <Image x:Name="image" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10" VerticalAlignment="Top" Width="223"/>
 
         <Border Width="2" Margin="2" Background="#8888" Grid.Column="2" Grid.RowSpan="6"/>
-        <Border Height="2" Margin="2" Background="#8888" Grid.Row="1" Grid.ColumnSpan="5"/>
+        <Border Height="2" Margin="2" Background="#8888" Grid.Row="1" Grid.ColumnSpan="6"/>
+        <Border Width="2" Margin="2" Background="#8888" Grid.Column="4" Grid.RowSpan="6"/>
 
 
         <Grid x:Name="filterGrid" Grid.Row="2" Grid.Column="1" Margin="10">
@@ -49,14 +52,18 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Label x:Name="colorLabel" Grid.Row="0" Grid.Column="0" Content="Color"/>
             <Label x:Name="rarityLabel" Grid.Row="1" Grid.Column="0" Content="Rarity"/>
             <Label x:Name="typeLabel" Grid.Row="2" Grid.Column="0" Content="Type"/>
+            <Label x:Name="setLabel" Grid.Row="3" Grid.Column="0" Content="Set"/>
+            <Label x:Name="searchLabel" Grid.Row="9" Grid.Column="0" Content="Search"/>
             <ComboBox x:Name="colorComboBox" Grid.Row="0" Grid.Column="1" Margin="5"/>
             <ComboBox x:Name="rarityComboBox" Grid.Row="1" Grid.Column="1" Margin="5"/>
             <ComboBox x:Name="typeComboBox" Grid.Row="2" Grid.Column="1" Margin="5"/>
+            <ComboBox x:Name="setComboBox" Grid.Row="3" Grid.Column="1" Margin="5"/>
+            <TextBox x:Name="searchTextBox" Grid.Row="9" Grid.Column="1" Margin="5" KeyUp="searchTextBox_KeyUp"/>
         </Grid>
 
         <Grid x:Name="detailsGrid" Grid.Row="4" Grid.Column="1" Margin="10">
@@ -91,7 +98,19 @@
             <TextBox x:Name="strengthText" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False"/>
             <Label Content="Mana cost" Grid.Row="8" Grid.Column="0"/>
             <TextBox x:Name="manaCostText" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False"/>
-            <Button x:Name="addButton" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Content="Add to deck" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="186"/>
+        </Grid>
+
+        <Grid x:Name="addGrid" Grid.Row="5" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="deckComboBox" Grid.Row="0" Grid.Column="0" Margin="5"/>
+            <Button x:Name="addToDeckButton" Content="Add To Deck" Grid.Row="1" Grid.Column="0" Margin="5"/>
         </Grid>
     </Grid>
 </Window>

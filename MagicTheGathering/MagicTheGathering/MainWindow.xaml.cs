@@ -1,6 +1,7 @@
 ﻿using MagicTheGathering.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,6 +23,8 @@ namespace MagicTheGathering
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Card> _cards = new List<Card>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -52,7 +55,18 @@ namespace MagicTheGathering
             typeComboBox.Items.Add("Planeswalker");
             typeComboBox.SelectedIndex = 0;
 
+            LoadDecksComboBox();
             LoadContent();
+
+            setComboBox.Items.Add("All");
+            foreach(var card in _cards)
+            {
+                if(!setComboBox.Items.Contains(card.SetName))
+                {
+                    setComboBox.Items.Add(card.SetName);
+                }
+            }
+            setComboBox.SelectedIndex = 0;
         }
 
         private void LoadContent()
@@ -60,6 +74,7 @@ namespace MagicTheGathering
             var handler = new DataHandler();
             var cards = handler.GetCards("Kaladesh");
             LoadList(cards);
+            _cards = cards;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -113,6 +128,19 @@ namespace MagicTheGathering
             Filter();
         }
 
+        private void searchTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cards = new List<Card>();
+            foreach (var card in _cards)
+            {
+                if (card.Name.ToLower().Contains(searchTextBox.Text.ToLower()))
+                {
+                    cards.Add(card);
+                }
+            }
+            LoadList(cards);
+        }
+
         private void LoadList(List<Card> cards)
         {
             listBox.Items.Clear();
@@ -122,10 +150,12 @@ namespace MagicTheGathering
                 listBox.IsEnabled = true;
                 listBox.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("", System.ComponentModel.ListSortDirection.Ascending));
             }
-            if(cards.Count == 0)
+            resultLabel.Content = listBox.Items.Count + " results";
+            if (cards.Count == 0)
             {
                 listBox.Items.Add("No cards have been found");
                 listBox.IsEnabled = false;
+                resultLabel.Content = "0 results";
             }
         }
 
@@ -206,6 +236,19 @@ namespace MagicTheGathering
                     break;
             }
 
+            if(setComboBox.SelectedValue.ToString() != "All")
+            {
+                var result = new List<Card>();
+                foreach(var card in cards)
+                {
+                    if(card.SetName == setComboBox.SelectedValue.ToString())
+                    {
+                        result.Add(card);
+                    }
+                }
+                cards = result;
+            }
+
             LoadList(cards);
         }
 
@@ -271,6 +314,19 @@ namespace MagicTheGathering
                 }
             }
             return result;
+        }
+
+        private void LoadDecksComboBox()
+        {
+            deckComboBox.Items.Add("<New Deck>");
+            var files = Directory.GetFiles("Data/Decks");
+            foreach(var file in files)
+            {
+                var item = file.Replace("Data/Decks\\", "");
+                item = item.Replace(".xml", "");
+                deckComboBox.Items.Add(item);
+            }
+            deckComboBox.SelectedIndex = 0;
         }
     }
 }
