@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MagicTheGathering.Models")]
+[assembly: AssemblyTitle("DataPopulater")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MagicTheGathering.Models")]
+[assembly: AssemblyProduct("DataPopulater")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("76f1de21-ebb0-490a-956a-4a3d782efa0a")]
+[assembly: Guid("7a2dfcff-d0cc-4ff6-86f4-f23c501b381c")]
 
 // Version information for an assembly consists of the following four values:
 //

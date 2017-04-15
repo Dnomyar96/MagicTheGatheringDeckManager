@@ -1,5 +1,4 @@
-﻿using MtgApiManager.Lib.Model;
-using MtgApiManager.Lib.Service;
+﻿using MagicTheGathering.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +32,7 @@ namespace MagicTheGathering
             colorComboBox.Items.Add("Green");
             colorComboBox.Items.Add("Red");
             colorComboBox.Items.Add("White");
+            colorComboBox.Items.Add("Multiple");
             colorComboBox.SelectedIndex = 0;
 
             rarityComboBox.Items.Add("All");
@@ -55,52 +55,26 @@ namespace MagicTheGathering
             LoadContent();
         }
 
-        private async void LoadContent()
+        private void LoadContent()
         {
-            var cards = new List<Card>();
-            var service = new CardService();
-            var done = false;
-            var count = 1;
-            while (!done)
-            {
-                ShowSpinner();
-                var result = await service.Where(x => x.SetName, "Kaladesh").Where(x => x.Page, count).AllAsync();
-                if (result.IsSuccess)
-                {
-                    HideSpinner();
-                    if (result.Value.Count > 0)
-                    {
-                        foreach (var card in result.Value)
-                        {
-                            cards.Add(card);
-                        }
-                    }
-                    else
-                    {
-                        done = true;
-                    }
-                }
-                count++;
-            }
+            var handler = new DataHandler();
+            var cards = handler.GetCards("Kaladesh");
             LoadList(cards);
         }
 
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
             if (listBox.SelectedItem != null)
             {
-                var service = new CardService();
-                ShowSpinner();
-                var result = await service.Where(x => x.Name, listBox.SelectedItem).AllAsync();
-                if (result.IsSuccess)
+                var handler = new DataHandler();
+                var cards = handler.GetCards("Kaladesh");
+                foreach (var card in cards)
                 {
-                    var cards = result.Value;
-
-                    foreach (var card in cards)
+                    if (card.Name == (string)listBox.SelectedItem)
                     {
-                        if(card.ImageUrl != null)
+                        if (card.ImageUrl != null)
                         {
-                            image.Source = new BitmapImage(new Uri(card.ImageUrl.AbsoluteUri, UriKind.Absolute));
+                            image.Source = new BitmapImage(new Uri(card.ImageUrl, UriKind.Absolute));
                         }
                         else
                         {
@@ -115,11 +89,11 @@ namespace MagicTheGathering
                         textText.Document.Blocks.Add(new Paragraph(new Run(card.Text)));
                         flavorText.Document.Blocks.Clear();
                         flavorText.Document.Blocks.Add(new Paragraph(new Run(card.Flavor)));
-                        if(card.Loyalty != null)
+                        if (card.Loyalty != null)
                         {
                             strengthText.Text = card.Loyalty;
                         }
-                        else if(card.Power != null)
+                        else if (card.Power != null)
                         {
                             strengthText.Text = card.Power + "/" + card.Toughness;
                         }
@@ -127,8 +101,9 @@ namespace MagicTheGathering
                         {
                             strengthText.Text = "";
                         }
+                        manaCostText.Text = card.ManaCost;
+                        break;
                     }
-                    HideSpinner();
                 }
             }
         }
@@ -138,60 +113,26 @@ namespace MagicTheGathering
             Filter();
         }
 
-        private void ShowSpinner()
-        {
-            spinner.Visibility = Visibility.Visible;
-            listBox.IsEnabled = false;
-            button.IsEnabled = false;
-            sortButton.IsEnabled = false;
-            filterGrid.IsEnabled = false;
-        }
-
-        private void HideSpinner()
-        {
-            spinner.Visibility = Visibility.Collapsed;
-            listBox.IsEnabled = true;
-            button.IsEnabled = true;
-            sortButton.IsEnabled = true;
-            filterGrid.IsEnabled = true;
-        }
-
         private void LoadList(List<Card> cards)
         {
             listBox.Items.Clear();
             foreach (var card in cards)
             {
                 listBox.Items.Add(card.Name);
+                listBox.IsEnabled = true;
+                listBox.Items.SortDescriptions.Add(new System.ComponentModel.SortDescription("", System.ComponentModel.ListSortDirection.Ascending));
+            }
+            if(cards.Count == 0)
+            {
+                listBox.Items.Add("No cards have been found");
+                listBox.IsEnabled = false;
             }
         }
 
-        private async void Filter()
+        private void Filter()
         {
-            var cards = new List<Card>();
-            var service = new CardService();
-            var done = false;
-            var count = 1;
-            while (!done)
-            {
-                ShowSpinner();
-                var result = await service.Where(x => x.SetName, "Kaladesh").Where(x => x.Page, count).AllAsync();
-                if (result.IsSuccess)
-                {
-                    HideSpinner();
-                    if (result.Value.Count > 0)
-                    {
-                        foreach (var card in result.Value)
-                        {
-                            cards.Add(card);
-                        }
-                    }
-                    else
-                    {
-                        done = true;
-                    }
-                }
-                count++;
-            }
+            var handler = new DataHandler();
+            var cards = handler.GetCards("Kaladesh");
 
             var color = colorComboBox.SelectedValue;
             switch (color)
@@ -212,6 +153,9 @@ namespace MagicTheGathering
                     break;
                 case "White":
                     cards = FilterColor("White", cards);
+                    break;
+                case "Multiple":
+                    cards = FilterColor("Multiple", cards);
                     break;
             }
 
@@ -268,11 +212,27 @@ namespace MagicTheGathering
         private List<Card> FilterColor(string color, List<Card> cards)
         {
             var result = new List<Card>();
-            foreach(var card in cards)
+            if (color != "Multiple")
             {
-                if (card.Colors != null)
+                foreach (var card in cards)
                 {
-                    if (card.Colors.Contains(color))
+                    if (card.Colors != null)
+                    {
+                        if (card.Colors.Contains(color))
+                        {
+                            result.Add(card);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (var card in cards)
+                {
+                    if (card.Colors == null)
+                        continue;
+
+                    if (card.Colors.Count() > 1)
                     {
                         result.Add(card);
                     }

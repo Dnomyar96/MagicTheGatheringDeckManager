@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagicTheGathering.Models
+namespace MagicTheGathering.Data
 {
-    class Card
+    public class Card
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string[] Colors { get; set; }
@@ -24,7 +22,7 @@ namespace MagicTheGathering.Models
 
         public string Text { get; set; }
 
-        public Uri ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         public string Loyalty { get; set; }
 

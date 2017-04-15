@@ -6,25 +6,35 @@
         xmlns:local="clr-namespace:MagicTheGathering"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="820" Width="700">
+        Title="MagicTheGathering" Height="1000" Width="1200" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <fa:ImageAwesome x:Name="spinner" Icon="Spinner" Spin="True" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="50" Width="50" Margin="10"/>
-        <ListBox x:Name="listBox" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10" VerticalAlignment="Top" Width="223"/>
-        <Button x:Name="button" Grid.Row="1" Grid.Column="0" Content="Show Card" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="223" Click="button_Click"/>
-        <Button x:Name="sortButton" Grid.Row="1" Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="100" Click="sortButton_Click"/>
-        <Image x:Name="image" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10" VerticalAlignment="Top" Width="223"/>
+        <Label Content="Set" Grid.Row="0" Grid.Column="0"/>
+        <Label Content="Deck" Grid.Row="0" Grid.Column="3"/>
+        <ListBox x:Name="listBox" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10" VerticalAlignment="Top" Width="223"/>
+        <Button x:Name="button" Grid.Row="3" Grid.Column="0" Content="Show Card" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="223" Click="button_Click"/>
+        <Button x:Name="sortButton" Grid.Row="3" Grid.Column="1" Content="Filter" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="100" Click="sortButton_Click"/>
+        <Image x:Name="image" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Height="311" Margin="10" VerticalAlignment="Top" Width="223"/>
 
-        <Grid x:Name="filterGrid" Grid.Row="0" Grid.Column="1" Margin="10">
+        <Border Width="2" Margin="2" Background="#8888" Grid.Column="2" Grid.RowSpan="6"/>
+        <Border Height="2" Margin="2" Background="#8888" Grid.Row="1" Grid.ColumnSpan="5"/>
+
+
+        <Grid x:Name="filterGrid" Grid.Row="2" Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -49,7 +59,7 @@
             <ComboBox x:Name="typeComboBox" Grid.Row="2" Grid.Column="1" Margin="5"/>
         </Grid>
 
-        <Grid x:Name="detailsGrid" Grid.Row="3" Grid.Column="1" Margin="10">
+        <Grid x:Name="detailsGrid" Grid.Row="4" Grid.Column="1" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -79,6 +89,9 @@
             <RichTextBox x:Name="flavorText" Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False"/>
             <Label Content="Strength" Grid.Row="7" Grid.Column="0"/>
             <TextBox x:Name="strengthText" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False"/>
+            <Label Content="Mana cost" Grid.Row="8" Grid.Column="0"/>
+            <TextBox x:Name="manaCostText" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" IsEnabled="False"/>
+            <Button x:Name="addButton" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Content="Add to deck" HorizontalAlignment="Left" Margin="5,10,0,10" VerticalAlignment="Top" Width="186"/>
         </Grid>
     </Grid>
 </Window>
