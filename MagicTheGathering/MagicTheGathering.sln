@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicTheGathering", "MagicT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicTheGathering.Data", "MagicTheGathering.Data\MagicTheGathering.Data.csproj", "{9ED7C612-08C8-4B5E-BCF7-6BF09D872049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPopulater", "DataPopulater\DataPopulater.csproj", "{7A2DFCFF-D0CC-4FF6-86F4-F23C501B381C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPopulater", "DataPopulater\DataPopulater.csproj", "{3C27E1E7-E61C-44F0-88E6-6857D16A0880}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{9ED7C612-08C8-4B5E-BCF7-6BF09D872049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ED7C612-08C8-4B5E-BCF7-6BF09D872049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ED7C612-08C8-4B5E-BCF7-6BF09D872049}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A2DFCFF-D0CC-4FF6-86F4-F23C501B381C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A2DFCFF-D0CC-4FF6-86F4-F23C501B381C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A2DFCFF-D0CC-4FF6-86F4-F23C501B381C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A2DFCFF-D0CC-4FF6-86F4-F23C501B381C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C27E1E7-E61C-44F0-88E6-6857D16A0880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C27E1E7-E61C-44F0-88E6-6857D16A0880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C27E1E7-E61C-44F0-88E6-6857D16A0880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C27E1E7-E61C-44F0-88E6-6857D16A0880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
