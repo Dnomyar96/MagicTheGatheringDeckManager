@@ -24,6 +24,7 @@ namespace MagicTheGathering
     public partial class MainWindow : Window
     {
         private List<Card> _cards = new List<Card>();
+        private const string SET = "Amonkhet";
 
         public MainWindow()
         {
@@ -72,7 +73,7 @@ namespace MagicTheGathering
         private void LoadContent()
         {
             var handler = new DataHandler();
-            var cards = handler.GetCards("Kaladesh");
+            var cards = handler.GetCards(SET);
             LoadList(cards);
             _cards = cards;
         }
@@ -82,7 +83,7 @@ namespace MagicTheGathering
             if (listBox.SelectedItem != null)
             {
                 var handler = new DataHandler();
-                var cards = handler.GetCards("Kaladesh");
+                var cards = handler.GetCards(SET);
                 foreach (var card in cards)
                 {
                     if (card.Name == (string)listBox.SelectedItem)
@@ -162,7 +163,7 @@ namespace MagicTheGathering
         private void Filter()
         {
             var handler = new DataHandler();
-            var cards = handler.GetCards("Kaladesh");
+            var cards = handler.GetCards(SET);
 
             var color = colorComboBox.SelectedValue;
             switch (color)
